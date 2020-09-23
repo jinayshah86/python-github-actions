@@ -27,7 +27,7 @@ jobs:
       run: |
         pip install -q wemake-python-styleguide
         wget "https://raw.githubusercontent.com/ebot7/eb7-styleguide/master/settings/setup_ml_githooks.cfg"
-        flake8 $pythonfiles --config=setup_ml_githooks.cfg
+        flake8 pgb/ --config=setup_ml_githooks.cfg
     - name: Test with pytest
       run: |
         pip install pytest==5.3.5 coverage==4.5.4
