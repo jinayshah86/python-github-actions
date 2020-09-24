@@ -21,7 +21,7 @@ jobs:
     - name: get changed files for pull request
       if: ${{ github.event_name == 'pull_request' }}
       run: |
-        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT origin/${{ github.base_ref }} ${{ github.head_ref }})
+        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT origin/${{ github.base_ref }} origin/${{ github.head_ref }})
     - name: print PYTHON_FILES
       run: |
         echo ${{ env.PYTHON_FILES }}
