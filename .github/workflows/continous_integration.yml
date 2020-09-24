@@ -23,11 +23,11 @@ jobs:
     - name: get changed files for push
       if: ${{ github.event_name == 'push' }}
       run: |
-        echo ::set-env name=PYTHON_FILES::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }} | awk '{print $1}' | paste -d' ' -s)
+        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }})
     - name: get changed files for pull request
       if: ${{ github.event_name == 'pull_request' }}
       run: |
-        echo ::set-env name=PYTHON_FILES::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }} | awk '{print $1}' | paste -d' ' -s}
+        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }})
     - name: print PYTHON_FILES
       run: |
         echo ${{ env.PYTHON_FILES }}
