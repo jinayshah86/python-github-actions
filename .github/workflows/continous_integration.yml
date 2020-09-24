@@ -15,11 +15,11 @@ jobs:
     - name: get changed files for push
       if: ${{ github.event_name == 'push' }}
       run: |
-        git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}
+        git status
     - name: get changed files for pull request
       if: ${{ github.event_name == 'pull_request' }}
       run: |
-        git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}
+        git log
     - name: print PYTHON_FILES
       run: |
         echo ${{ env.PYTHON_FILES }}
