@@ -22,12 +22,14 @@ jobs:
         pip install -r requirements.txt
     - name: get changed files for push
       if: ${{ github.event_name == 'push' }}
+      uses: actions/checkout@v2
       run: |
-        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }})
+        git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}
     - name: get changed files for pull request
       if: ${{ github.event_name == 'pull_request' }}
+      uses: actions/checkout@v2
       run: |
-        echo ::set-env name=PYTHON_FILES::$(git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }})
+        git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}
     - name: print PYTHON_FILES
       run: |
         echo ${{ env.PYTHON_FILES }}
