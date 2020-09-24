@@ -1,6 +1,6 @@
 def pow(a: int, b: int) -> int:
     """
-    Power of two number
+    Power of two number.
 
     Args:
         a (int): First argument

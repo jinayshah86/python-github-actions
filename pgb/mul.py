@@ -1,6 +1,6 @@
 def mul(a: int, b: int) -> int:
     """
-    Multiplies two number
+    Multiplies two number.
 
     Args:
         a (int): First argument
