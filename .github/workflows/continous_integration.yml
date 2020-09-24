@@ -1,6 +1,6 @@
 name: Python application
 
-on: [push]
+on: [push,pull_request]
 
 jobs:
   build:
@@ -24,6 +24,9 @@ jobs:
     - name: echo output
       run: |
         echo ${{ steps.getfile.outputs.files }}
+    - name: echo event
+      run: |
+        echo ${{ github.event.name }}
 #    - name: Lint with flake8
 #      run: |
 #        pip install -q wemake-python-styleguide
