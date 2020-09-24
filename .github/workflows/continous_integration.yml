@@ -20,24 +20,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-#    - name: get changed files
-#      id: getfile
-#      run: |
-#        if ${{ github.event_name }} = push
-#        then
-#          echo "::set-output name=files::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}) | awk '{print $1}' | paste -d' ' -s"
-#        else
-#          echo "::set-output name=files::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}) | awk '{print $1}' | paste -d' ' -s"
-    - name: echo event push
+    - name: get changed files for push
       if: ${{ github.event_name == 'push' }}
-      env:
-        PYTHON_FILES: ${{ github.event_name }}
       run: |
-        echo ${{ env.PYTHON_FILES }}
-    - name: echo event pull request
+        echo ::set-env name=PYTHON_FILES::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }} | awk '{print $1}' | paste -d' ' -s)
+    - name: get changed files for pull request
       if: ${{ github.event_name == 'pull_request' }}
-      env:
-        PYTHON_FILES: ${{ github.event_name }}
+      run: |
+        echo ::set-env name=PYTHON_FILES::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }} | awk '{print $1}' | paste -d' ' -s}
+    - name: print PYTHON_FILES
       run: |
         echo ${{ env.PYTHON_FILES }}
 #    - name: Lint with flake8
