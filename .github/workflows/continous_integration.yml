@@ -12,6 +12,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: get changed files for push
+      if: ${{ github.event_name == 'push' }}
+      run: |
+        git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}
+    - name: get changed files for pull request
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}
+    - name: print PYTHON_FILES
+      run: |
+        echo ${{ env.PYTHON_FILES }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
@@ -20,19 +31,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: get changed files for push
-      if: ${{ github.event_name == 'push' }}
-      uses: actions/checkout@v2
-      run: |
-        git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}
-    - name: get changed files for pull request
-      if: ${{ github.event_name == 'pull_request' }}
-      uses: actions/checkout@v2
-      run: |
-        git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}
-    - name: print PYTHON_FILES
-      run: |
-        echo ${{ env.PYTHON_FILES }}
 #    - name: Lint with flake8
 #      run: |
 #        pip install -q wemake-python-styleguide
