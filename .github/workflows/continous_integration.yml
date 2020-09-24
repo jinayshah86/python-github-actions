@@ -26,7 +26,7 @@ jobs:
         echo ${{ steps.getfile.outputs.files }}
     - name: echo event
       run: |
-        echo ${{ github.event.name }}
+        echo ${{ github.event_name }}
 #    - name: Lint with flake8
 #      run: |
 #        pip install -q wemake-python-styleguide
