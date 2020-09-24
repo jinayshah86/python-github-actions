@@ -28,14 +28,14 @@ jobs:
 #          echo "::set-output name=files::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.sha }}~ ${{ github.sha }}) | awk '{print $1}' | paste -d' ' -s"
 #        else
 #          echo "::set-output name=files::$(find . -type f -name "*.py" | xargs git diff --name-only --diff-filter=ACMRT ${{ github.base_ref }} ${{ github.head_ref }}) | awk '{print $1}' | paste -d' ' -s"
-    - if: ${{ github.event_name }} == 'push'
-      name: echo event push
+    - name: echo event push
+      if: ${{ github.event_name == 'push' }}
       env:
         PYTHON_FILES: ${{ github.event_name }}
       run: |
         echo ${{ env.PYTHON_FILES }}
-    - if: ${{ github.event_name }} == 'pull_request'
-      name: echo event pull request
+    - name: echo event pull request
+      if: ${{ github.event_name == 'pull_request' }}
       env:
         PYTHON_FILES: ${{ github.event_name }}
       run: |
