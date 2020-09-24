@@ -6,7 +6,7 @@ jobs:
   build:
 
     env:
-      PYTHON_FILES
+      PYTHON_FILES: .
 
     runs-on: ubuntu-latest
 
