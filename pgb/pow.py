@@ -1,5 +1,3 @@
-from pgb import add
-import os
 def pow(a: int, b: int) -> int:
     """
     Power of two number
