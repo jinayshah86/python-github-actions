@@ -1,6 +1,6 @@
 def sub(a: int, b: int) -> int:
     """
-    Subtracts two number
+    Subtracts two number.
 
     Args:
         a (int): First argument

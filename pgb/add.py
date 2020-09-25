@@ -1,6 +1,6 @@
 def add(a: int, b: int) -> int:
     """
-    Adds two number
+    Adds two number.
 
     Args:
         a (int): First argument
